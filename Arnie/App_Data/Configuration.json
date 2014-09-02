@@ -1,0 +1,50 @@
+﻿{
+    "repos":  [
+	            {
+				  "repo_key": "full_name",
+	              "repo_value":  "nick-o/WebHook_Test",
+				  "commands": [
+				                {
+				                    "command":  "Get-Process | Out-File D:\\process.txt",
+				                    "order":  1
+				                },
+				                {
+				                    "command":  "Get-Service | Out-File D:\\service.txt",
+				                    "order":  2
+				                }
+                             ]
+                },
+				{
+				  "repo_key": "full_name",
+				  "repo_value": "haha",
+				  "commands": [
+				                {
+								    "command": "$policy = Get-ExecutionPolicy",
+									"order": 1
+								},
+				                {
+								    "command": "Set-ExecutionPolicy Bypass -Scope Process -Force",
+									"order": 2
+								},
+				                {
+								    "command": "C:\\Devops\\Untitled2.ps1",
+									"order": 3
+								},
+								{
+								    "command": "Set-ExecutionPolicy $policy -Scope Process -Force",
+									"order": 4
+								}
+				  ]
+				},
+				{
+				  "repo_key": "full_name",
+				  "repo_value": "yoyo",
+				  "commands": [
+				                {
+								    "command": "Get-ExecutionPolicy | Out-File D:\\policy.txt",
+									"order": 1
+								}
+				  ]
+				}
+            ]
+}
