@@ -18,7 +18,7 @@ via GUI:
 * Type an Alias (e.g. API), change the Application Pool to the one created earlier (e.g. API) and specify the Physical Path (e.g. D:\Website\Arnie\Arnie) and click OK
 
 via Powershell:
-```
+```PoSh
 $pool = New-WebAppPool -Name API
 $pool.processModel.identityType = 0
 $pool | Set-Item
