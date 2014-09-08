@@ -26,7 +26,7 @@ New-WebApplication -Site "Default Web Site" -Name "API" -PhysicalPath D:\Website
 ```
 
 via DSC:
-```
+```PoSh
 Configuration InstallAPI {
     Import-DscResource -ModuleName msWebAdministration
     Node localhost {
@@ -64,7 +64,7 @@ Either of the three methods above will leave you with an Application called API 
 
 The JSON data posted by github will contain a sub-document called repository looking similar to the below:
 
-```
+```PoSh
   "repository": {
     "id": 22758137,
     "name": "WebHook_Test",
@@ -84,7 +84,7 @@ The JSON data posted by github will contain a sub-document called repository loo
 ```
 
 Each of the above keys can be used to define actions/commands. The Configuration is inside a JSON file called Configuration.json located in Arnie/App_Data. This file needs to look like the following:
-```
+```PoSh
 {
     "repos": [
         {
