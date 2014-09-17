@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Security;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Hosting;
 
 namespace Arnie
@@ -21,6 +24,13 @@ namespace Arnie
         string IRestService.DoItNow(GitHubPushWebhook pushInfo)
         {
             WebOperationContext ctx = WebOperationContext.Current;
+            if(!(Utility.IsAllowed(HttpContext.Current)))
+            {
+                ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.Forbidden;
+                return "Source IP not in ACL";
+            }
+            
+            
             string confJSON = HostingEnvironment.MapPath("~/App_Data/Configuration.json");
             Repos config;
             try
@@ -140,6 +150,40 @@ namespace Arnie
                 }
             }
         }
+
+        public static bool IsAllowed(HttpContext context)
+        {
+            var allowedAddresses = Config.ArnieConfig.Settings.AllowedAddresses ?? "";
+            if (string.IsNullOrWhiteSpace(allowedAddresses) || allowedAddresses.ToLowerInvariant() == "none")
+            {
+                return false;
+            }
+            var method = context.Request.HttpMethod.ToUpperInvariant();
+            if (method != "POST" && method != "PUT")
+            {
+                return false;
+            }
+            var allowed = false;
+            var requestAddress = context.Request.UserHostAddress ?? "null";
+            foreach (var address in allowedAddresses.Split(new[] { ',', ';', ' ' }))
+            {
+                if (!string.IsNullOrWhiteSpace(address))
+                {
+                    if (address == "*")
+                    {
+                        return true;
+                    }
+                    var regex = new Regex("^" + address.Replace(".", "\\.").Replace("*", "\\d+") + "$");
+                    if (regex.IsMatch(requestAddress))
+                    {
+                        allowed = true;
+                        break;
+                    }
+                }
+            }
+            return allowed;
+        }
+
     }
 
 }

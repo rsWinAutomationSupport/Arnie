@@ -70,6 +70,7 @@
     <Compile Include="Arnie.svc.cs">
       <DependentUpon>Arnie.svc</DependentUpon>
     </Compile>
+    <Compile Include="Config.cs" />
     <Compile Include="GitHubPushWebhook.cs" />
     <Compile Include="IRestService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
