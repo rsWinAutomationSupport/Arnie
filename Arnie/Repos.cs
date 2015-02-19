@@ -24,6 +24,9 @@ namespace Arnie
 
         [DataMember(Name = "repo_value")]
         public string repo_value { get; set; }
+
+        [DataMember(Name = "ref")]
+        public string ref_ { get; set; }
     }
 
     [DataContract]

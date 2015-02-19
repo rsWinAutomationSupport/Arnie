@@ -61,7 +61,10 @@ namespace Arnie
 
             try
             {
-                repositories = config.repos.Where(repo => (string)pushInfo.repository[repo.repo_key] == repo.repo_value).ToList();
+                // get list of repos by matching key
+                // and ref if present
+                repositories = config.repos.Where(repo => (string)pushInfo.repository[repo.repo_key] == repo.repo_value 
+                                                        && (string.IsNullOrEmpty(repo.ref_) ? true : pushInfo.ref_ == repo.ref_)).ToList();
             }
             catch (Exception exc)
             {
