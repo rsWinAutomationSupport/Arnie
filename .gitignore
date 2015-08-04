@@ -173,4 +173,4 @@ UpgradeLog*.htm
 FakesAssemblies/
 
 # App config file
-Arnie/App_Data/Configuration.json
+Configuration.json
