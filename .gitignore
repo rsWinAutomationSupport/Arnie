@@ -171,3 +171,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+# App config file
+Arnie/App_Data/Configuration.json
