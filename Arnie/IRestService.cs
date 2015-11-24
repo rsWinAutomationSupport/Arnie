@@ -19,5 +19,19 @@ namespace Arnie
                    BodyStyle = WebMessageBodyStyle.Bare,
                    UriTemplate = "DoItNow")]
         string DoItNow(GitHubPushWebhook pushInfo);
+
+    }
+
+    [ServiceContract]
+    public interface ISecureRestService
+    {
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+                            RequestFormat = WebMessageFormat.Json,
+                            ResponseFormat = WebMessageFormat.Json,
+                            BodyStyle = WebMessageBodyStyle.Bare,
+                            UriTemplate = "Test")]
+        string Test(RandomStuff test);
+
     }
 }

@@ -19,8 +19,14 @@ using System.Web.Hosting;
 
 namespace Arnie
 {
-    public class Arnie : IRestService
+    public class Arnie : IRestService,ISecureRestService
     {
+        string ISecureRestService.Test(RandomStuff test)
+        {
+            return String.Format("This worked, you entered: {0}", test["test"]);
+        }
+
+
         string IRestService.DoItNow(GitHubPushWebhook pushInfo)
         {
             WebOperationContext ctx = WebOperationContext.Current;
