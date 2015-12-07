@@ -45,6 +45,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll</HintPath>
     </Reference>
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -73,7 +74,7 @@
     <Compile Include="Arnie.svc.cs">
       <DependentUpon>Arnie.svc</DependentUpon>
     </Compile>
-    <Compile Include="RandomStuff.cs" />
+    <Compile Include="ClientRegistration.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="GitHubPushWebhook.cs" />
     <Compile Include="IRestService.cs" />

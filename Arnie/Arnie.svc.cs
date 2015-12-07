@@ -7,6 +7,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
+using System.Messaging;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Security;
@@ -21,9 +22,38 @@ namespace Arnie
 {
     public class Arnie : IRestService,ISecureRestService
     {
-        string ISecureRestService.Test(RandomStuff test)
+        string ISecureRestService.ItsShowtime(ClientRegistration registrationData)
         {
-            return String.Format("This worked, you entered: {0}", test["test"]);
+            WebOperationContext ctx = WebOperationContext.Current;
+            string queuePath = Config.ArnieConfig.Settings.QueuePath;
+            if ( !MessageQueue.Exists(@".\private$\rsdsc"))
+            {
+                ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                return "Could not locate Queue configured in Web.config. Please check service Configuration";
+            }
+
+            Guid guid;
+            if (!Guid.TryParse(registrationData.uuid, out guid))
+            {
+                ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.UnsupportedMediaType;
+                return "Uuid specified is in the wrong format.";
+            }
+            
+            MessageQueue msgQ = new MessageQueue(@".\private$\rsdsc");
+            Message msg = new Message();
+            msg.Formatter = new XmlMessageFormatter(new String[]{"System.String"});
+            try
+            {
+                msg.Body = String.Format("{{'uuid':'{0}','publicCert':'{1}'}}", registrationData.uuid, registrationData.publicCert);
+                msg.Label = "Client_Registration";
+                msgQ.Send(msg);
+                msgQ.Close();
+            }
+            catch (Exception exp)
+            {
+                Utility.LogException(exp);
+            }
+            return String.Format("{{'uuid':'{0}','publicCert':'{1}'}}", registrationData.uuid, registrationData.publicCert);  //String.Format("This worked, you entered: {0}", test["embedded"]);
         }
 
 

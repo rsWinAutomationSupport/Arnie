@@ -21,5 +21,12 @@ namespace Arnie.Config
             get { return this["allowedAddresses"] as string; }
             set { this["allowedAdresses"] = value; }
         }
+
+        [ConfigurationProperty("queuePath", DefaultValue = @".\private$\rsdsc")]
+        public string QueuePath
+        {
+            get { return this["queuePath"] as string; }
+            set { this["queuePath"] = value; }
+        }
     }
 }

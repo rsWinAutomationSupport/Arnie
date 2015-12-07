@@ -10,7 +10,7 @@ using System.Reflection;
 namespace Arnie
 {
     [DataContract]
-    public class RandomStuff
+    public class ClientRegistration
     {
         public object this[string i]
         {
@@ -25,9 +25,18 @@ namespace Arnie
             }
         }
 
-        [DataMember(Name = "test")]
-        public String test { get; set; }
+        [DataMember(Name = "uuid", IsRequired = true)]
+        public String uuid { get; set; }
 
-    
+        [DataMember(Name = "publicCert", IsRequired = true)]
+        public String publicCert { get; set; }
+
     }
+
+    //[DataContract(Name = "embedded")]
+    //public class class1
+    //{
+    //    [DataMember(Name = "value1")]
+    //    public string value1 { get; set; }
+    //}
 }

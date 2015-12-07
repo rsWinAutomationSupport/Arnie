@@ -30,8 +30,8 @@ namespace Arnie
                             RequestFormat = WebMessageFormat.Json,
                             ResponseFormat = WebMessageFormat.Json,
                             BodyStyle = WebMessageBodyStyle.Bare,
-                            UriTemplate = "Test")]
-        string Test(RandomStuff test);
+                            UriTemplate = "ItsShowtime")]
+        string ItsShowtime(ClientRegistration test);
 
     }
 }
