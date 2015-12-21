@@ -31,6 +31,9 @@ namespace Arnie
         [DataMember(Name = "publicCert", IsRequired = true)]
         public String publicCert { get; set; }
 
+        [DataMember(Name = "dsc_config", IsRequired = true)]
+        public String dsc_config { get; set; }
+
     }
 
     //[DataContract(Name = "embedded")]

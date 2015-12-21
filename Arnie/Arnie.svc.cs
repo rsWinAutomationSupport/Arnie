@@ -44,7 +44,7 @@ namespace Arnie
             msg.Formatter = new XmlMessageFormatter(new String[]{"System.String"});
             try
             {
-                msg.Body = String.Format("{{'uuid':'{0}','publicCert':'{1}'}}", registrationData.uuid, registrationData.publicCert);
+                msg.Body = String.Format("{{'uuid':'{0}','publicCert':'{1}', 'dsc_config':'{2}'}}", registrationData.uuid, registrationData.publicCert, registrationData.dsc_config);
                 msg.Label = "Client_Registration";
                 msgQ.Send(msg);
                 msgQ.Close();
