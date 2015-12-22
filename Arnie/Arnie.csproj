@@ -83,7 +83,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="App_Data\Configuration.json" />
+    <Content Include="App_Data\Configuration.json.example" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
