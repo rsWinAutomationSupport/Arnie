@@ -26,12 +26,12 @@ namespace Arnie
         {
             WebOperationContext ctx = WebOperationContext.Current;
             string queuePath = Config.ArnieConfig.Settings.QueuePath;
-            if ( !MessageQueue.Exists(@".\private$\rsdsc"))
+            if (!MessageQueue.Exists(queuePath))
             {
                 ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.InternalServerError;
                 return "Could not locate Queue configured in Web.config. Please check service Configuration";
             }
-
+            
             Guid guid;
             if (!Guid.TryParse(registrationData.uuid, out guid))
             {
@@ -39,12 +39,12 @@ namespace Arnie
                 return "Uuid specified is in the wrong format.";
             }
             
-            MessageQueue msgQ = new MessageQueue(@".\private$\rsdsc");
+            MessageQueue msgQ = new MessageQueue(queuePath);
             Message msg = new Message();
-            msg.Formatter = new XmlMessageFormatter(new String[]{"System.String"});
+            msg.Formatter = new XmlMessageFormatter(new String[] { "System.String" });
             try
             {
-                msg.Body = String.Format("{{'uuid':'{0}','publicCert':'{1}', 'dsc_config':'{2}'}}", registrationData.uuid, registrationData.publicCert, registrationData.dsc_config);
+                msg.Body = String.Format("{{'uuid':'{0}','publicCert':'{1}','dsc_config':'{2}'}}", registrationData.uuid, registrationData.publicCert, registrationData.dsc_config);
                 msg.Label = "Client_Registration";
                 msgQ.Send(msg);
                 msgQ.Close();
