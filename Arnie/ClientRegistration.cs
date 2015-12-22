@@ -25,14 +25,17 @@ namespace Arnie
             }
         }
 
-        [DataMember(Name = "uuid", IsRequired = true)]
-        public String uuid { get; set; }
+        [DataMember(Name = "ConfigID", IsRequired = true)]
+        public String configID { get; set; }
 
-        [DataMember(Name = "publicCert", IsRequired = true)]
-        public String publicCert { get; set; }
+        [DataMember(Name = "ClientDSCCert", IsRequired = true)]
+        public String clientDSCCert { get; set; }
 
-        [DataMember(Name = "dsc_config", IsRequired = true)]
-        public String dsc_config { get; set; }
+        [DataMember(Name = "ClientConfig", IsRequired = true)]
+        public String clientConfig { get; set; }
+
+        [DataMember(Name = "MetaData", IsRequired = false)]
+        public String metaData { get; set; }
 
     }
 

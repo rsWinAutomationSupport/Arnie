@@ -33,7 +33,7 @@ namespace Arnie
             }
             
             Guid guid;
-            if (!Guid.TryParse(registrationData.uuid, out guid))
+            if (!Guid.TryParse(registrationData.configID, out guid))
             {
                 ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.UnsupportedMediaType;
                 return "Uuid specified is in the wrong format.";
@@ -44,7 +44,8 @@ namespace Arnie
             msg.Formatter = new XmlMessageFormatter(new String[] { "System.String" });
             try
             {
-                msg.Body = String.Format("{{'uuid':'{0}','publicCert':'{1}','dsc_config':'{2}'}}", registrationData.uuid, registrationData.publicCert, registrationData.dsc_config);
+                msg.Body = String.Format("{{'ConfigID':'{0}','ClientDSCCert':'{1}','ClientConfig':'{2}','MetaData':'{3}'}}", 
+                                            registrationData.configID, registrationData.clientDSCCert, registrationData.clientConfig, registrationData.metaData);
                 msg.Label = "Client_Registration";
                 msgQ.Send(msg);
                 msgQ.Close();
@@ -53,7 +54,7 @@ namespace Arnie
             {
                 Utility.LogException(exp);
             }
-            return String.Format("{{'uuid':'{0}','publicCert':'{1}'}}", registrationData.uuid, registrationData.publicCert);  //String.Format("This worked, you entered: {0}", test["embedded"]);
+            return String.Format("{{'ConfigID':'{0}'}}", registrationData.configID);  //String.Format("This worked, you entered: {0}", test["embedded"]);
         }
 
 
