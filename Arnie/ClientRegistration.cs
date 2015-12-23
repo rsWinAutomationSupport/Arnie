@@ -25,6 +25,9 @@ namespace Arnie
             }
         }
 
+        [DataMember(Name = "ClientName", IsRequired = true)]
+        public String clientName { get; set; }
+
         [DataMember(Name = "ConfigID", IsRequired = true)]
         public String configID { get; set; }
 

@@ -44,8 +44,8 @@ namespace Arnie
             msg.Formatter = new XmlMessageFormatter(new String[] { "System.String" });
             try
             {
-                msg.Body = String.Format("{{'ConfigID':'{0}','ClientDSCCert':'{1}','ClientConfig':'{2}','MetaData':'{3}'}}", 
-                                            registrationData.configID, registrationData.clientDSCCert, registrationData.clientConfig, registrationData.metaData);
+                msg.Body = String.Format("{{'ClientName':'{0}','ConfigID':'{1}','ClientDSCCert':'{2}','ClientConfig':'{3}','MetaData':'{4}'}}", 
+                                            registrationData.clientName, registrationData.configID, registrationData.clientDSCCert, registrationData.clientConfig, registrationData.metaData);
                 msg.Label = "Client_Registration";
                 msgQ.Send(msg);
                 msgQ.Close();
